@@ -1,0 +1,92 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "",
+  "Metadata": {},
+  "Parameters": {
+    "MyAppVpcCidr": {
+      "Description": "Choose Cidr for Vpc",
+      "Type": "String",
+      "Default": "10.23.0.0/16"
+    },
+    "Subnet1Cidr": {
+      "Description": "Choose Cidr for Subnet1",
+      "Type": "String",
+      "Default": "10.23.1.0/24"
+    },
+    "Subnet2Cidr": {
+      "Description": "Choose Cidr for Subnet1",
+      "Type": "String",
+      "Default": "10.23.2.0/24"
+    },
+    "Subnet1AZs": {
+      "Description": "Choose AZ for Subnet1",
+      "Type": "AWS::EC2::AvailabilityZone::Name"
+    },
+    "Subnet2AZs": {
+      "Description": "Choose AZ for Subnet1",
+      "Type": "AWS::EC2::AvailabilityZone::Name"
+    }
+  },
+  "Mappings": {},
+  "Conditions": {},
+  "Resources": {
+    "MyAppVpc": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "MyAppVpcCidr"
+        },
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyAppVpc"
+          }
+        ]
+      }
+    },
+    "Subnet1": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "MapPublicIpOnLaunch": true,
+        "AvailabilityZone": {
+          "Ref": "Subnet1AZs"
+        },
+        "VpcId": {
+          "Ref": "MyAppVpc"
+        },
+        "CidrBlock": {
+          "Ref": "Subnet1Cidr"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Subnet1"
+          }
+        ]
+      }
+    },
+    "Subnet2": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "MapPublicIpOnLaunch": true,
+        "AvailabilityZone": {
+          "Ref": "Subnet2AZs"
+        },
+        "VpcId": {
+          "Ref": "MyAppVpc"
+        },
+        "CidrBlock": {
+          "Ref": "Subnet2Cidr"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Subnet2"
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {}
+}

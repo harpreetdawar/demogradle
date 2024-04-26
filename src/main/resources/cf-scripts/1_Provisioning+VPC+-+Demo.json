@@ -1,0 +1,32 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "",
+  "Metadata": {},
+  "Parameters": {
+    "MyAppVpcCidr": {
+      "Description": "Choose Cidr for Vpc",
+      "Type": "String",
+      "Default": "10.23.0.0/16"
+    }
+  },
+  "Mappings": {},
+  "Conditions": {},
+  "Resources": {
+    "MyAppVpc": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "MyAppVpcCidr"
+        },
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyAppVpc"
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {}
+}
